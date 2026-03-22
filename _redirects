@@ -1,5 +1,5 @@
-# Redirect www to apex domain
+# www to apex
 https://www.trydatadriver.com/* https://trydatadriver.com/:splat 301!
 
-# Clean URL fallback (SPA-style, though this is static)
+# SPA fallback — React router handles all routes
 /*    /index.html   200
