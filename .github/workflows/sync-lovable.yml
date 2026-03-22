@@ -1,0 +1,166 @@
+name: Sync from Lovable
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+  workflow_dispatch:         # Manual trigger from GitHub UI
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # ── Step 1: Check if Lovable has new bundles ──
+      - name: Check for Lovable changes
+        id: check
+        run: |
+          curl -sf https://trydatadriver.com/ -o /tmp/lovable.html || { echo "Lovable unreachable"; exit 0; }
+
+          NEW_JS=$(grep -oE 'assets/index-[A-Za-z0-9_-]+\.js' /tmp/lovable.html | head -1)
+          NEW_CSS=$(grep -oE 'assets/index-[A-Za-z0-9_-]+\.css' /tmp/lovable.html | head -1)
+
+          CURRENT_JS=$(ls assets/*.js 2>/dev/null | head -1)
+          CURRENT_CSS=$(ls assets/*.css 2>/dev/null | head -1)
+
+          echo "Lovable:  JS=$NEW_JS  CSS=$NEW_CSS"
+          echo "Current:  JS=$CURRENT_JS  CSS=$CURRENT_CSS"
+
+          if [ "$NEW_JS" = "$CURRENT_JS" ] && [ "$NEW_CSS" = "$CURRENT_CSS" ]; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "✓ No changes"
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "new_js=$NEW_JS" >> "$GITHUB_OUTPUT"
+            echo "new_css=$NEW_CSS" >> "$GITHUB_OUTPUT"
+            echo "⚡ Changes detected"
+          fi
+
+      # ── Step 2: Download new Lovable build assets ──
+      - name: Download new Lovable build
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          # Remove old bundles
+          rm -f assets/*.js assets/*.css
+
+          # Download new bundles
+          curl -sL "https://trydatadriver.com/${{ steps.check.outputs.new_js }}" \
+            -o "${{ steps.check.outputs.new_js }}"
+          curl -sL "https://trydatadriver.com/${{ steps.check.outputs.new_css }}" \
+            -o "${{ steps.check.outputs.new_css }}"
+
+          # Download support files
+          curl -sL "https://trydatadriver.com/~flock.js" -o "~flock.js"
+
+          # Download images (may have changed)
+          curl -sL "https://trydatadriver.com/images/logo.jpeg" -o images/logo.jpeg
+          curl -sL "https://trydatadriver.com/images/og-image.jpg" -o images/og-image.jpg
+
+          echo "Downloaded: ${{ steps.check.outputs.new_js }}, ${{ steps.check.outputs.new_css }}"
+
+      # ── Step 3: Render page to get pre-rendered HTML for SEO ──
+      - name: Get pre-rendered content via Firecrawl
+        if: steps.check.outputs.changed == 'true'
+        env:
+          FIRECRAWL_API_KEY: ${{ secrets.FIRECRAWL_API_KEY }}
+        run: |
+          RESPONSE=$(curl -sf -X POST 'https://api.firecrawl.dev/v1/scrape' \
+            -H 'Content-Type: application/json' \
+            -H "Authorization: Bearer $FIRECRAWL_API_KEY" \
+            -d '{
+              "url": "https://trydatadriver.com",
+              "formats": ["rawHtml"],
+              "waitFor": 5000
+            }')
+
+          echo "$RESPONSE" | python3 -c "
+          import sys, json, re
+          data = json.load(sys.stdin)
+          html = data.get('data', {}).get('rawHtml', '')
+          if not html:
+              print('ERROR: No rawHtml in response')
+              sys.exit(1)
+          match = re.search(r'<div id=\"root\">(.*)</div>\s*</body>', html, re.DOTALL)
+          if not match:
+              print('ERROR: Could not find root content')
+              sys.exit(1)
+          content = match.group(1)
+          content = content.replace(
+              'https://xsssfwhlnfdghhogecjl.supabase.co/storage/v1/object/public/videos/section-videos%2Fhero-new.mp4',
+              '/videos/hero-new.mp4'
+          )
+          with open('root-content.html', 'w') as f:
+              f.write(content)
+          print(f'Extracted root content: {len(content)} chars')
+          "
+
+      # ── Step 4: Check for new videos ──
+      - name: Check for new videos
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          # Extract video URLs from rendered content
+          VIDEO_URLS=$(grep -oE 'https://xsssfwhlnfdghhogecjl\.supabase\.co/storage/v1/object/public/videos/[^"'"'"' ><]*' root-content.html 2>/dev/null | sort -u || true)
+
+          if [ -n "$VIDEO_URLS" ]; then
+            echo "Found video URLs:"
+            echo "$VIDEO_URLS"
+            mkdir -p videos
+            while IFS= read -r url; do
+              FILENAME=$(echo "$url" | sed 's|.*section-videos%2F||;s|%2F|/|g')
+              if [ ! -f "videos/$FILENAME" ]; then
+                echo "Downloading: $FILENAME"
+                curl -sL "$url" -o "videos/$FILENAME"
+              else
+                echo "Already have: $FILENAME"
+              fi
+            done <<< "$VIDEO_URLS"
+          else
+            echo "No new videos found"
+          fi
+
+      # ── Step 5: Build enhanced index.html ──
+      - name: Build SEO-enhanced index.html
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          python3 scripts/build-index.py \
+            --js "${{ steps.check.outputs.new_js }}" \
+            --css "${{ steps.check.outputs.new_css }}" \
+            --root-content root-content.html \
+            --seo-head scripts/seo-head.html \
+            --output index.html
+
+      # ── Step 6: Commit and push ──
+      - name: Commit and push changes
+        if: steps.check.outputs.changed == 'true'
+        run: |
+          # Clean up temp file
+          rm -f root-content.html
+
+          git config user.name "Lovable Sync Bot"
+          git config user.email "sync@trydatadriver.com"
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "No file changes to commit"
+          else
+            TIMESTAMP=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+            git commit -m "Sync from Lovable — $TIMESTAMP
+
+            Auto-synced build: ${{ steps.check.outputs.new_js }}"
+            git push
+            echo "✓ Pushed changes"
+          fi
+
+      # ── Step 7: Deploy to Netlify ──
+      - name: Deploy to Netlify
+        if: steps.check.outputs.changed == 'true'
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          npm install -g netlify-cli
+          netlify deploy --prod --dir . --auth "$NETLIFY_AUTH_TOKEN" --site "$NETLIFY_SITE_ID"
+          echo "✓ Deployed to Netlify"
