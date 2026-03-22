@@ -1,0 +1,5 @@
+# Redirect www to apex domain
+https://www.trydatadriver.com/* https://trydatadriver.com/:splat 301!
+
+# Clean URL fallback (SPA-style, though this is static)
+/*    /index.html   200
