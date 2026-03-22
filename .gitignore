@@ -1,2 +1,5 @@
 .DS_Store
 .firecrawl/
+
+# Local Netlify folder
+.netlify
