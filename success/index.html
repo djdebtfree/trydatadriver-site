@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome to DataDriver Pro — Purchase Confirmed</title>
+    <meta name="description" content="Your DataDriver Pro purchase is confirmed. Here's what happens next.">
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/jpeg" href="/images/logo.jpeg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" crossorigin href="/assets/index-nagjcq_P.css">
+    <style>
+      body {
+        font-family: Inter, sans-serif;
+        margin: 0;
+        background: hsl(220, 20%, 4%);
+        color: hsl(220, 10%, 90%);
+        min-height: 100vh;
+      }
+      .success-container {
+        max-width: 640px;
+        margin: 0 auto;
+        padding: 80px 24px 60px;
+        text-align: center;
+      }
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, hsl(78, 100%, 50%), hsl(78, 80%, 40%));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 32px;
+        box-shadow: 0 0 40px rgba(178, 255, 0, 0.3);
+      }
+      .success-icon svg {
+        width: 40px;
+        height: 40px;
+        stroke: hsl(220, 40%, 10%);
+      }
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 900;
+        line-height: 1.1;
+        margin: 0 0 16px;
+        color: white;
+      }
+      h1 span {
+        background: linear-gradient(90deg, hsl(78, 100%, 50%), hsl(78, 80%, 40%));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+      .subtitle {
+        font-size: 1.25rem;
+        color: hsl(220, 10%, 60%);
+        margin-bottom: 40px;
+        line-height: 1.5;
+      }
+      .steps-card {
+        background: hsl(220, 20%, 8%);
+        border: 1px solid hsl(220, 15%, 15%);
+        border-radius: 16px;
+        padding: 32px;
+        text-align: left;
+        margin-bottom: 32px;
+      }
+      .steps-card h2 {
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: white;
+        margin: 0 0 20px;
+      }
+      .step {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-bottom: 20px;
+      }
+      .step:last-child {
+        margin-bottom: 0;
+      }
+      .step-number {
+        flex-shrink: 0;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: hsl(78, 60%, 94%);
+        color: hsl(78, 70%, 28%);
+        font-weight: 800;
+        font-size: 0.875rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .step-content h3 {
+        font-size: 0.9375rem;
+        font-weight: 700;
+        color: white;
+        margin: 0 0 4px;
+      }
+      .step-content p {
+        font-size: 0.875rem;
+        color: hsl(220, 10%, 55%);
+        margin: 0;
+        line-height: 1.5;
+      }
+      .cta-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 14px 32px;
+        background: linear-gradient(90deg, hsl(78, 100%, 50%), hsl(78, 80%, 40%));
+        color: hsl(220, 40%, 10%);
+        font-weight: 700;
+        font-size: 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        box-shadow: 0 12px 32px -8px hsla(78, 80%, 40%, 0.5);
+        transition: all 0.2s;
+        margin-bottom: 16px;
+      }
+      .cta-button:hover {
+        box-shadow: 0 16px 40px -8px hsla(78, 80%, 40%, 0.6);
+        transform: translateY(-1px);
+      }
+      .home-link {
+        display: inline-block;
+        color: hsl(220, 10%, 55%);
+        font-size: 0.875rem;
+        text-decoration: none;
+      }
+      .home-link:hover {
+        color: white;
+      }
+      .logo {
+        height: 40px;
+        width: auto;
+        border-radius: 6px;
+        margin-bottom: 24px;
+      }
+      .confetti {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 100;
+        overflow: hidden;
+      }
+      .confetti-piece {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        border-radius: 2px;
+        top: -10px;
+        animation: confetti-fall 3s ease-out forwards;
+        opacity: 0;
+      }
+      @keyframes confetti-fall {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="success-container">
+      <img src="/images/logo.jpeg" alt="Data Driver" class="logo">
+
+      <div class="success-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+      </div>
+
+      <h1>You're In. <span>Welcome to DataDriver Pro.</span></h1>
+      <p class="subtitle">Your payment is confirmed. We're setting up your account now. Here's what happens next.</p>
+
+      <div class="steps-card">
+        <h2>Next Steps</h2>
+        <div class="step">
+          <div class="step-number">1</div>
+          <div class="step-content">
+            <h3>Check your email</h3>
+            <p>You'll receive a confirmation email with your receipt and login details within 5 minutes.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <div class="step-content">
+            <h3>Install in GoHighLevel</h3>
+            <p>Open the GHL Marketplace, search "Data Driver", and install it into your agency account.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <div class="step-content">
+            <h3>Set up your first subaccount</h3>
+            <p>Configure filters, connect your client's CRM, and start delivering verified contacts.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <div class="step-content">
+            <h3>Schedule your onboarding call</h3>
+            <p>We'll walk you through everything — data filters, agent setup, rebill configuration.</p>
+          </div>
+        </div>
+      </div>
+
+      <a href="https://app.gohighlevel.com/marketplace" target="_blank" rel="noopener" class="cta-button">Open GHL Marketplace</a>
+      <br>
+      <a href="/" class="home-link">Back to trydatadriver.com</a>
+    </div>
+
+    <!-- Confetti animation on load -->
+    <div class="confetti" id="confetti"></div>
+    <script>
+    (function() {
+      var colors = ['#b2ff00', '#ff791a', '#00b4d8', '#e63946', '#f4a261', '#2a9d8f'];
+      var container = document.getElementById('confetti');
+      for (var i = 0; i < 60; i++) {
+        var piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+        piece.style.animationDelay = Math.random() * 1.5 + 's';
+        piece.style.animationDuration = (2 + Math.random() * 2) + 's';
+        piece.style.width = (6 + Math.random() * 6) + 'px';
+        piece.style.height = (6 + Math.random() * 6) + 'px';
+        container.appendChild(piece);
+      }
+      // Clean up confetti after animation
+      setTimeout(function() { container.innerHTML = ''; }, 5000);
+    })();
+    </script>
+  </body>
+</html>
