@@ -49,7 +49,7 @@ NEW_PRICING = r'''<section data-section-id="pricing" id="pricing" class="py-16 m
 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 text-[hsl(78,80%,35%)] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-sm text-[hsl(220,10%,30%)]">Voice &amp; Avatar</span></li>
 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 text-[hsl(220,15%,80%)] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg><span class="text-sm text-[hsl(220,10%,65%)]">Audience Builder</span></li>
 </ul>
-<a id="dd-checkout-pro" href="https://buy.stripe.com/STRIPE_PRO_LINK" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-full rounded-lg bg-gradient-to-r from-[hsl(78,100%,50%)] to-[hsl(78,80%,40%)] text-[hsl(220,40%,10%)] font-bold text-base py-3.5 hover:from-[hsl(78,100%,45%)] hover:to-[hsl(78,80%,35%)] shadow-lg shadow-[hsl(78,80%,40%)]/25 cta-glow transition-all">Lock Founder Pricing — $497</a>
+<a id="dd-checkout-pro" href="https://buy.stripe.com/00w5kC6TTauzbSh9EP0Jq0v" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-full rounded-lg bg-gradient-to-r from-[hsl(78,100%,50%)] to-[hsl(78,80%,40%)] text-[hsl(220,40%,10%)] font-bold text-base py-3.5 hover:from-[hsl(78,100%,45%)] hover:to-[hsl(78,80%,35%)] shadow-lg shadow-[hsl(78,80%,40%)]/25 cta-glow transition-all">Lock Founder Pricing — $497</a>
 </div>
 
 <!-- Tier 3: DataDriver Pro+ -->
@@ -68,7 +68,7 @@ NEW_PRICING = r'''<section data-section-id="pricing" id="pricing" class="py-16 m
 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 text-[hsl(25,100%,55%)] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-sm text-[hsl(220,10%,30%)]">Voice &amp; Avatar</span></li>
 <li class="flex items-start gap-2.5"><svg class="w-5 h-5 text-[hsl(25,100%,55%)] mt-0.5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg><span class="text-sm text-[hsl(220,10%,30%)]">Priority support &amp; onboarding</span></li>
 </ul>
-<a id="dd-checkout-proplus" href="https://buy.stripe.com/STRIPE_PROPLUS_LINK" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-full rounded-lg bg-gradient-to-r from-[hsl(25,100%,55%)] to-[hsl(15,100%,50%)] text-white font-bold text-base py-3.5 hover:from-[hsl(25,100%,50%)] hover:to-[hsl(15,100%,45%)] shadow-lg shadow-[hsl(25,80%,50%)]/25 cta-glow-orange transition-all">Get Pro+ — $997 + $199/mo</a>
+<a id="dd-checkout-proplus" href="https://buy.stripe.com/aFa6oGa65fOTcWl04f0Jq0w" target="_blank" rel="noopener" class="inline-flex items-center justify-center w-full rounded-lg bg-gradient-to-r from-[hsl(25,100%,55%)] to-[hsl(15,100%,50%)] text-white font-bold text-base py-3.5 hover:from-[hsl(25,100%,50%)] hover:to-[hsl(15,100%,45%)] shadow-lg shadow-[hsl(25,80%,50%)]/25 cta-glow-orange transition-all">Get Pro+ — $997 + $199/mo</a>
 </div>
 
 </div>
